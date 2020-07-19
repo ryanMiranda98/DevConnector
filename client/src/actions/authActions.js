@@ -7,6 +7,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
+  CLEAR_PROFILE,
 } from "./types";
 import { setAlert } from "./alertActions";
 import setAuthToken from "../utils/setAuthToken";
@@ -61,17 +62,18 @@ export const login = ({ email, password }) => async (dispatch) => {
     dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     dispatch(loadUser());
   } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => {
-        dispatch(setAlert(error.msg, "danger"));
-      });
-    }
+    // const errors = error.response.data.errors;
+    // if (errors) {
+    //   errors.forEach((error) => {
+    //     dispatch(setAlert(error.msg, "danger"));
+    //   });
+    // }
     dispatch({ type: LOGIN_FAIL });
   }
 };
 
 // Logout
 export const logout = () => (dispatch) => {
+  dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 };

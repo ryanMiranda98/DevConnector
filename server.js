@@ -8,6 +8,11 @@ const cors = require("cors");
 app.use(express.json({ extended: false }));
 app.use(cors());
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 // Connect Database
 connectDB();
 
